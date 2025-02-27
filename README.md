@@ -26,26 +26,26 @@ go get github.com/admgo/storage
 Here is a simple example of using `admgo/storage` to initialize a storage instance, save data, and retrieve it:
 
 ```go
+
 package main
 
 import (
-	"log"
-	"admgo/storage"
+    "github.com/admgo/storage"
 )
 
 func main() {
-	p := NewProvider(Config{
+	p := storage.NewProvider(storage.Config{
 		Provider: "aliyun",
-		Aliyun: AliyunOssConfig{
+		AliyunOssConfig: storage.AliyunOssConfig{
 			AccessKeyID:        "****************************",
 			AccessKeySecret:    "****************************",
 			Region:             "cn-beijing",
 			Bucket:             "storage",
-			Prefix:             "",
-			CredentialProvider: "env",
+			Prefix:             "storage",
+			CredentialProvider: "static",
 		},
 	})
-	err := p.PutObject(File{
+	err := p.PutObject(storage.File{
 		Path:    "test/test.txt",
 		Content: []byte("test"),
 	})
@@ -53,6 +53,7 @@ func main() {
 		panic(err)
 	}
 }
+
 
 ```
 
